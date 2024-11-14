@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.spring.map.model.mapper.PlaceInfoMapper">
+
+    <!-- 장소 추가 -->
+    <insert id="insertPlace" parameterType="PlaceInfoDto">
+        INSERT INTO place_info (
+        content_type_id, name, addr1, addr2, latitude, longitude, sido_code, gugun_code, cat1, cat2, cat3
+        ) VALUES (
+        #{content_type_id}, #{name}, #{addr1}, #{addr2}, #{latitude}, #{longitude}, #{sidoCode}, #{gugunCode}, #{cat1}, #{cat2}, #{cat3}
+        )
+    </insert>
+
+    <!--지역 코드 -->
+    <select id="findAreaCode" resultType="map">
+        select * from sidos
+    </select>
+
+    <!-- 시군구 코드 -->
+    <select id="findSigunguCodebyAreaCode" parameterType="integer" resultType="map">
+        select sido_code, gugun_code, gugun_name from guguns where sido_code = #{areaCode}
+    </select>
+
+</mapper>
